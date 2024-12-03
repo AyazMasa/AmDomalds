@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Admin - AmDonald's Panel</title>
+</head>
+<body>
+    <header>
+        <h1>Admin Panel</h1>
+    </header>
+    <main>
+        <section id="menuManagement">
+            <h2>Manage Menu</h2>
+            <form id="addProductForm">
+                <label for="productName">Product Name:</label>
+                <input type="text" id="productName" name="productName" required>
+                <label for="productType">Type:</label>
+                <select id="productType" name="productType">
+                    <option value="meal">Meal</option>
+                    <option value="drink">Drink</option>
+                </select>
+                <button type="submit">Add Product</button>
+            </form>
+
+            <h3>Meals</h3>
+            <ul id="mealList"></ul>
+
+            <h3>Drinks</h3>
+            <ul id="drinkList"></ul>
+        </section>
+
+        <section id="orderManagement">
+            <h2>Manage Orders</h2>
+            <ul id="adminQueueList"></ul>
+        </section>
+    </main>
+    <script src="admin.js"></script>
+</body>
+</html>
