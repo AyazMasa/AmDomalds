@@ -1,42 +1,108 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Admin - AmDonald's Panel</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mdomalds static admin panel for menu and queue management.">
+  <title>Mdomalds | Admin</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23111214'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Arial, sans-serif' font-size='28' font-weight='800' fill='%23ffcf4a'%3EM%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script src="admin.js" defer></script>
 </head>
 <body>
-    <header>
-        <h1>Admin Panel</h1>
-    </header>
-    <main>
-        <section id="menuManagement">
-            <h2>Manage Menu</h2>
-            <form id="addProductForm">
-                <label for="productName">Product Name:</label>
-                <input type="text" id="productName" name="productName" required>
-                <label for="productType">Type:</label>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="Mdomalds home">
+        <span class="brand-mark" aria-hidden="true">M</span>
+        <span>Mdomalds</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="index.html">Customer</a>
+        <a href="#menuManagement">Menu</a>
+        <a href="#orderManagement">Orders</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero compact">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Admin panel</p>
+          <h1>Manage Mdomalds</h1>
+          <p>Update the menu, track waiting orders, and clear completed queue items.</p>
+        </div>
+        <aside class="status-card" aria-label="Admin summary">
+          <span class="status-label">Queue status</span>
+          <strong id="adminOrderCount">0 active orders</strong>
+          <span id="adminMenuCount">0 menu items</span>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="menuManagement">
+      <div class="container admin-grid">
+        <div>
+          <div class="section-heading">
+            <p class="eyebrow">Menu</p>
+            <h2>Product management</h2>
+          </div>
+
+          <form id="addProductForm" class="admin-form">
+            <label for="productName">Product name</label>
+            <input type="text" id="productName" name="productName" maxlength="60" autocomplete="off" required>
+
+            <label for="productDescription">Short description</label>
+            <input type="text" id="productDescription" name="productDescription" maxlength="120" autocomplete="off">
+
+            <div class="form-row">
+              <div>
+                <label for="productType">Type</label>
                 <select id="productType" name="productType">
-                    <option value="meal">Meal</option>
-                    <option value="drink">Drink</option>
+                  <option value="meals">Meal</option>
+                  <option value="drinks">Drink</option>
                 </select>
-                <button type="submit">Add Product</button>
-            </form>
+              </div>
+              <div>
+                <label for="productPrice">Price</label>
+                <input type="number" id="productPrice" name="productPrice" min="0.5" max="99" step="0.1" value="4.90" required>
+              </div>
+            </div>
 
-            <h3>Meals</h3>
-            <ul id="mealList"></ul>
+            <button class="button primary full" type="submit">Add product</button>
+          </form>
+        </div>
 
-            <h3>Drinks</h3>
-            <ul id="drinkList"></ul>
-        </section>
+        <div class="management-lists">
+          <section class="panel" aria-labelledby="mealListTitle">
+            <h3 id="mealListTitle">Meals</h3>
+            <div id="mealList" class="admin-list"></div>
+          </section>
 
-        <section id="orderManagement">
-            <h2>Manage Orders</h2>
-            <ul id="adminQueueList"></ul>
-        </section>
-    </main>
-    <script src="admin.js"></script>
+          <section class="panel" aria-labelledby="drinkListTitle">
+            <h3 id="drinkListTitle">Drinks</h3>
+            <div id="drinkList" class="admin-list"></div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-muted" id="orderManagement">
+      <div class="container">
+        <div class="section-heading action-heading">
+          <div>
+            <p class="eyebrow">Orders</p>
+            <h2>Kitchen queue</h2>
+          </div>
+          <button class="button ghost" id="clearCompleted" type="button">Clear completed</button>
+        </div>
+        <div id="adminQueueList" class="queue-grid" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 </body>
 </html>

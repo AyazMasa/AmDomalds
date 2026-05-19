@@ -1,34 +1,100 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>AmDonald's Order Queue</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mdomalds static ordering queue demo with menu selection and live order queue.">
+  <title>Mdomalds | Order Queue</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23111214'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Arial, sans-serif' font-size='28' font-weight='800' fill='%23ffcf4a'%3EM%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
 </head>
 <body>
-    <header>
-        <h1>Welcome to AmDonald's</h1>
-    </header>
-    <main>
-        <form id="orderForm">
-            <h2>Place Your Order</h2>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-            <h3>Burgers</h3>
-            <div id="mealsMenu"></div>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="Mdomalds home">
+        <span class="brand-mark" aria-hidden="true">M</span>
+        <span>Mdomalds</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#menu">Menu</a>
+        <a href="#queue">Queue</a>
+        <a href="admin.html">Admin</a>
+      </nav>
+    </div>
+  </header>
 
-            <h3>Drinks</h3>
-            <div id="drinksMenu"></div>
+  <main id="main">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Fast order queue</p>
+          <h1>Mdomalds</h1>
+          <p>
+            Build an order from the menu, review the total, and send it to the kitchen queue.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#menu">Start order</a>
+            <a class="button secondary" href="admin.html">Open admin</a>
+          </div>
+        </div>
 
-            <button type="submit">Place Order</button>
+        <aside class="status-card" aria-label="Queue status">
+          <span class="status-label">Now serving</span>
+          <strong id="nowServing">No active orders</strong>
+          <span id="queueCount">0 orders waiting</span>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="menu">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Menu</p>
+          <h2>Choose items</h2>
+        </div>
+
+        <form id="orderForm" class="order-layout">
+          <div class="menu-column">
+            <section class="menu-group" aria-labelledby="mealsTitle">
+              <h3 id="mealsTitle">Meals</h3>
+              <div id="mealsMenu" class="menu-grid"></div>
+            </section>
+
+            <section class="menu-group" aria-labelledby="drinksTitle">
+              <h3 id="drinksTitle">Drinks</h3>
+              <div id="drinksMenu" class="menu-grid"></div>
+            </section>
+          </div>
+
+          <aside class="order-summary" aria-labelledby="summaryTitle">
+            <h3 id="summaryTitle">Current order</h3>
+            <p id="summaryEmpty" class="muted">No items selected yet.</p>
+            <ul id="summaryList" class="summary-list"></ul>
+            <div class="summary-total">
+              <span>Total</span>
+              <strong id="summaryTotal">EUR 0.00</strong>
+            </div>
+            <button class="button primary full" type="submit">Place order</button>
+            <button class="button ghost full" id="clearSelection" type="button">Clear selection</button>
+          </aside>
         </form>
+      </div>
+    </section>
 
-        <section id="orderQueue">
-            <h2>Order Queue</h2>
-            <ul id="queueList"></ul>
-        </section>
-    </main>
-    <script src="app.js"></script>
+    <section class="section section-muted" id="queue">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Queue</p>
+          <h2>Order board</h2>
+        </div>
+        <div id="queueList" class="queue-grid" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
